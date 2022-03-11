@@ -1,13 +1,12 @@
-
-function p10_p (ch,zn,executiveSystem = 2){
-    const p10_pForInt = (input,executiveSystem)=>{
+function p10_p(ch, zn, executiveSystem = 2) {
+    const p10_pForInt = (input, executiveSystem) => {
         let num = ''
-        if(input===0){
+        if (input === 0) {
             return 0
         }
-        while(input){
+        while (input) {
             let x
-            switch (input%executiveSystem){
+            switch (input % executiveSystem) {
                 case 10:
                     x = 'A'
                     break
@@ -27,37 +26,40 @@ function p10_p (ch,zn,executiveSystem = 2){
                     x = 'F'
                     break
                 default:
-                    x = input%executiveSystem
+                    x = input % executiveSystem
             }
-            num=(x).toString() + num
-            input=Math.floor(input/executiveSystem)
+            num = (x).toString() + num
+            input = Math.floor(input / executiveSystem)
         }
         return num
     }
 
-    if(ch % zn == 0){
-        let int = Math.floor(ch/zn)
-        return p10_pForInt(int,executiveSystem)
+    if (ch % zn === 0) {
+        let int = Math.floor(ch / zn)
+        return p10_pForInt(int, executiveSystem)
     }
-    const int = p10_pForInt(Math.floor(ch/zn),executiveSystem)
-    ch%=zn
+    const int = p10_pForInt(Math.floor(ch / zn), executiveSystem)
+    ch %= zn
     let d = ''
-    const arr = [ch%zn]
+    const arr = [ch % zn]
     let ind = 0
-    while(ch){
-        ch*=executiveSystem
-        let cif = Math.floor(ch/zn)
-        ch-=cif*zn
-        d+=cif.toString()
-        if(ch in arr){
+    while (ch) {
+        ch *= executiveSystem
+        let cif = Math.floor(ch / zn)
+        ch -= cif * zn
+        d += cif.toString()
+        if (arr.indexOf(ch)!==-1) {
             ind = arr.indexOf(ch)
+            // debugger
             break
         }
+        arr.push(ch)
     }
-    if(ch){
-        return int+'.'+d.substring(0,ind)+'('+d.substring(ind,-1)+')'
-    }else{
-        return int + '.' +d
+
+    if (ch) {
+        return int + '.' + d.substring(0, ind) + '(' + d.substring(ind) + ')'
+    } else {
+        return int + '.' + d
     }
 }
 
