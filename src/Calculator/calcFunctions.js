@@ -1,31 +1,38 @@
 
-module.exports.p_p10 = function p_p10 (number){
+function p_p10 (number,radix = 2){
+    number = number.toString()
     const p_p10_c = (number) => {
-        let p = 2**(number.length - 1)
+
+        let p = radix**(number.length - 1)
         let c = 0
         for(let i = 0; i < number.length;i++){
             if('1234567890'.includes(number.charAt(i))){
                 c += +number.charAt(i)*p
             }else {
-                c += number.charCodeAt(i)*p
+                c += (+number.charCodeAt(+number.charAt(i)) - 55)*p
             }
-            p = Math.floor(p/2)
+            p = Math.floor(p/radix)
         }
         return c
     }
     const p_p10_d = (number) => {
+        let ch
+        let zn
         if (number.includes('(')){
             const ind = number.indexOf('(')
             const after = number.substring(ind+1,number.length - 1)
             const before = number.substring(0,ind)
 
-            const ch = p_p10_c(after+before) - p_p10_c(after)
-            const zn = 2**(after+before).length - 2**after.length
+            ch = p_p10_c(after+before) - p_p10_c(before)
+            zn = radix**(after+before).length - radix**before.length
         }else{
-            const ch = p_p10_c(number)
-            const zn = 2**number.length
+            ch = p_p10_c(number)
+            zn = radix**number.length
         }
-        return {ch, zn}
+        return {
+            ch:ch,
+            zn:zn
+        }
     }
     const NOD = (n,m) => {
         while (m){
@@ -35,41 +42,35 @@ module.exports.p_p10 = function p_p10 (number){
         }
         return n
     }
-    if (number.includes('.')){
+    if (number.toString().includes('.')){
         const ind = number.indexOf('.')
         const intPart = number.substring(0,ind)
         const floatPart = number.substring(ind + 1)
         let {ch, zn} = p_p10_d(floatPart)
         ch += zn * p_p10_c(intPart)
         const nod = NOD(ch,zn)
-        ch = Math.floor(ch/nod)
-        zn = Math.floor(zn/nod)
-        return {ch, zn}
+        return {
+            ch:Math.floor(ch/nod),
+            zn:Math.floor(zn/nod)
+        }
     }else{
-        return p_p10_c(number)
+        return {
+            ch:p_p10_c(number),
+            zn:1
+        }
     }
 }
-let assert = require('assert');
-
-describe("p_p10", function() {
-    it("возводит число в степень n", function() {
-        assert.equal(p_p10(11), 3);
-    });
-    it('...',()=>{
-        assert.equal(p_p10(100), 4);
-    })
-});
 
 
-function p10_p(ch, zn, executiveSystem = 2) {
-    const p10_pForInt = (input, executiveSystem) => {
+function p10_p(ch, zn, radix = 2) {
+    const p10_pForInt = (input, radix) => {
         let num = ''
         if (input === 0) {
             return 0
         }
         while (input) {
             let x
-            switch (input % executiveSystem) {
+            switch (input % radix) {
                 case 10:
                     x = 'A'
                     break
@@ -89,31 +90,30 @@ function p10_p(ch, zn, executiveSystem = 2) {
                     x = 'F'
                     break
                 default:
-                    x = input % executiveSystem
+                    x = input % radix
             }
             num = (x).toString() + num
-            input = Math.floor(input / executiveSystem)
+            input = Math.floor(input / radix)
         }
         return num
     }
 
     if (ch % zn === 0) {
         let int = Math.floor(ch / zn)
-        return p10_pForInt(int, executiveSystem)
+        return p10_pForInt(int, radix)
     }
-    const int = p10_pForInt(Math.floor(ch / zn), executiveSystem)
+    const int = p10_pForInt(Math.floor(ch / zn), radix)
     ch %= zn
     let d = ''
     const arr = [ch % zn]
     let ind = 0
     while (ch) {
-        ch *= executiveSystem
+        ch *= radix
         let cif = Math.floor(ch / zn)
         ch -= cif * zn
         d += cif.toString()
         if (arr.indexOf(ch)!==-1) {
             ind = arr.indexOf(ch)
-            // debugger
             break
         }
         arr.push(ch)
@@ -126,4 +126,9 @@ function p10_p(ch, zn, executiveSystem = 2) {
     }
 }
 
-// export {p10_p, p_p10};
+function p_p(number,from,to) {
+    const {ch,zn}=p_p10(number,from)
+    return p10_p(ch,zn,to)
+}
+
+export default p_p;
