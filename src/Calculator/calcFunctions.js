@@ -1,3 +1,23 @@
+// function p_p10 (number){
+//     const p_p10_c = (number) => {
+//         let p = 2**(number.length - 1)
+//         let c = 0
+//         for(let i = 0; i < number.length;i++){
+//             if('1234567890'.includes(number.charAt(i))){
+//                 c += +number.charAt(i)*p
+//             }else {
+//                 c += number.charCodeAt(i)*p
+//             }
+//             p = Math.floor(p/2)
+//         }
+//         return c
+//     }
+//     const p_p10_d = (number) => {
+//         if number.includes('('){
+//
+//         }
+//     }
+// }
 function p10_p(ch, zn, executiveSystem = 2) {
     const p10_pForInt = (input, executiveSystem) => {
         let num = ''
