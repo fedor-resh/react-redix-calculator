@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import p_p from "./calcFunctions";
-import styles from './Calculator.module.css'
+import s from './Calculator.module.css'
 
 
 const Calculator = () => {
@@ -8,41 +8,50 @@ const Calculator = () => {
     const [fromRadix, setFromRadix] = useState(10)
     const [toRadix, setToRadix] = useState(2)
     const [result, setResult] = useState(0)
-
-    useEffect(()=>{
-        if (!(number.toString().includes('(')&&!number.toString().includes(')'))){
-            setResult(p_p(number,fromRadix,toRadix))
+    const characters = '0123'
+    useEffect(() => {
+        if (!(number.toString().includes('(') && !number.toString().includes(')'))) {
+            setResult(p_p(number, fromRadix, toRadix))
         }
-    })
+    },[number,fromRadix,toRadix])
+    function changeRadix(num){
+
+    }
+
+    function changeNumber(){
+
+    }
     return (
-        <div className={styles.container}>
-            <div>
-                <p>number</p>
-            <input type="text"
-                   value={number}
-                   onChange={el=>
-                       setNumber(el.target.value)}/>
+        <div className={s.container}>
+            <div className={s.wrapper}>
+                <div className={s.from_to__wrapper}>
+                    <div className={s.from__wrapper}>
+                        <input
+                            type="text"
+                            value={fromRadix}
+                            onChange={el =>
+                                setFromRadix(el.target.value)}/>
+                        <p className={s.characters}>{characters}</p>
+                    </div>
+                    <div className={s.to__wrapper}>
+                        <input
+                            type="text"
+                            value={toRadix}
+                            onChange={el =>
+                                setToRadix(el.target.value)}/>
+                        <p className={s.characters}>{characters}</p>
+                    </div>
+                </div>
+                <div className={s.input__wrapper}>
+                    <textarea
+                           value={number}
+                           onChange={el =>
+                               setNumber(el.target.value)}/>
+                </div>
+                <div className={s.result__wrapper}>
+                    <p>{result}</p>
+                </div>
             </div>
-
-            <div>
-                <p>from</p>
-                <input
-                    type="number"
-                    value={fromRadix}
-                    onChange={el=>
-                        setFromRadix(el.target.value)}/>
-            </div>
-
-            <div>
-                <p>to</p>
-                <input
-                    type="number"
-                    value={toRadix}
-                    onChange={el=>
-                        setToRadix(el.target.value)}/>
-            </div>
-
-            <p>{result}</p>
         </div>
     );
 };
