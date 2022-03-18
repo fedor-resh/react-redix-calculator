@@ -1,4 +1,3 @@
-
 function p_p10 (number,radix = 2){
     number = number.toString()
     const p_p10_c = (number) => {
@@ -9,7 +8,7 @@ function p_p10 (number,radix = 2){
             if('1234567890'.includes(number.charAt(i))){
                 c += +number.charAt(i)*p
             }else {
-                c += (+number.charCodeAt(+number.charAt(i)) - 55)*p
+                c += (+number.charCodeAt(i) - 55)*p
             }
             p = Math.floor(p/radix)
         }
@@ -23,7 +22,7 @@ function p_p10 (number,radix = 2){
             const after = number.substring(ind+1,number.length - 1)
             const before = number.substring(0,ind)
 
-            ch = p_p10_c(after+before) - p_p10_c(before)
+            ch = p_p10_c(before+after) - p_p10_c(before)
             zn = radix**(after+before).length - radix**before.length
         }else{
             ch = p_p10_c(number)
@@ -69,30 +68,11 @@ function p10_p(ch, zn, radix = 2) {
             return 0
         }
         while (input) {
-            let x
-            switch (input % radix) {
-                case 10:
-                    x = 'A'
-                    break
-                case 11:
-                    x = 'B'
-                    break
-                case 12:
-                    x = 'C'
-                    break
-                case 13:
-                    x = 'D'
-                    break
-                case 14:
-                    x = 'E'
-                    break
-                case 15:
-                    x = 'F'
-                    break
-                default:
-                    x = input % radix
+            let x = input % radix
+            if (x>10){
+                x=String.fromCharCode(x+55)
             }
-            num = (x).toString() + num
+            num = x + num
             input = Math.floor(input / radix)
         }
         return num
@@ -106,21 +86,24 @@ function p10_p(ch, zn, radix = 2) {
     ch %= zn
     let d = ''
     const arr = [ch % zn]
-    let ind = 0
+    let index = 0
     while (ch) {
         ch *= radix
         let cif = Math.floor(ch / zn)
         ch -= cif * zn
+        if (cif>10){
+            cif=String.fromCharCode(cif+55)
+        }
         d += cif.toString()
         if (arr.indexOf(ch)!==-1) {
-            ind = arr.indexOf(ch)
+            index = arr.indexOf(ch)
             break
         }
         arr.push(ch)
     }
 
     if (ch) {
-        return int + '.' + d.substring(0, ind) + '(' + d.substring(ind) + ')'
+        return int + '.' + d.substring(0, index) + '(' + d.substring(index) + ')'
     } else {
         return int + '.' + d
     }
