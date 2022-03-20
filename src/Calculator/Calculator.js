@@ -11,7 +11,7 @@ const Calculator = () => {
     const [number, setNumber] = useState('')
     const [fromRadix, setFromRadix] = useState(16)
     const [toRadix, setToRadix] = useState(2)
-    const [result, setResult] = useState(0)
+    const [result, setResult] = useState('0')
     const [error, setError] = useState('')
     const characters = '0123456789ABCDEF'
     const charactersFrom = characters.substring(0, fromRadix)
@@ -65,7 +65,7 @@ const Calculator = () => {
         setFromRadix(toRadix)
         setToRadix(x)
         const y = number
-        setNumber(result)
+        setNumber(result.toString())
         setResult(y)
     }
 
