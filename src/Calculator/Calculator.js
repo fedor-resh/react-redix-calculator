@@ -2,8 +2,10 @@ import React, {useEffect, useState, useRef} from 'react';
 import p_p from "./calcFunctions";
 import s from './Calculator.module.css'
 import NumberInput from './NumberInput/NumberInput'
-import btn_change from './../btn-change.svg'
+import {ReactComponent as Btn_change} from './../btn-change.svg'
 import RadixInput from './RadixInput/RadixInput';
+import Instruction from './Instruction/Instruction';
+
 
 const Calculator = () => {
     const [number, setNumber] = useState('')
@@ -78,6 +80,7 @@ const Calculator = () => {
         <div className={s.container}>
             <div className={s.header}>
                 <h1>radix calculator</h1>
+
             </div>
             <div className={s.wrapper}>
                 <div className={s.from_to__wrapper}>
@@ -90,9 +93,10 @@ const Calculator = () => {
                         />
 
                     </div>
-                    <img onClick={() => {
-                        replaceRadix()
-                    }} src={btn_change} alt=""/>
+                        <Btn_change className={s.img}
+                                    onClick={() => {
+                                        replaceRadix()
+                                    }}/>
                     <div className={s.to__wrapper}>
                         <RadixInput
                             characters={charactersTo}
@@ -113,6 +117,7 @@ const Calculator = () => {
                 <div className={s.result__wrapper}>
                     <p className={error ? s.error : ''}>{error ? error : result}</p>
                 </div>
+                <Instruction/>
             </div>
         </div>
     );
