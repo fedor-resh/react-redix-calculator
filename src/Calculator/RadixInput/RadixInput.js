@@ -14,13 +14,7 @@ const RadixInput = ({Ref,value,onChange,characters}) => {
                         <div
                             key={text}
                             className={s.item}
-                            onClick={()=>{
-                                onChange(text)
-                                list.current.style.display = 'none'
-                                setTimeout(()=>{
-                                    list.current.style.display = 'inline-block'
-                                },100)
-                            }}>
+                            onClick={()=>onChange(text)}>
                             <p>{text}</p>
                         </div>
                     )}
