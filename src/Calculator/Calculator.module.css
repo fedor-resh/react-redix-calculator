@@ -65,12 +65,7 @@
 }
 
 
-.characters{
-    font-size: 16px;
-    color:var(--color-white-blue);
-    display: inline;
-    padding-left: 3px;
-}
+
 
 @media (min-width: 900px) {
     .wrapper{

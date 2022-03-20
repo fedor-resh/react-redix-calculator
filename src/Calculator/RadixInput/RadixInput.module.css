@@ -1,0 +1,48 @@
+.characters{
+    font-size: 16px;
+    color:var(--color-white-blue);
+    display: inline;
+    padding-left: 3px;
+}
+.list{
+    visibility: hidden;
+    position: absolute;
+    background-color: #2A2E35AA;
+    padding:10px 20px;
+    border-radius: 5px;
+    top:35px;
+    left: 0;
+    opacity: 0;
+    transition: 0.2s;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+}
+.arrow{
+    margin-right: 3px;
+    position: relative;
+    display: inline-block;
+}
+.arrowSvg{
+    width: 20px;
+    height: 20px;
+    transition: 0.2s
+}
+.arrow:hover .arrowSvg,
+.list:hover~.arrowSvg {
+    transform: rotate(90deg);
+}
+.arrow:hover>.list{
+    opacity: 1;
+
+    visibility: revert;
+
+    transform: scale(1, 1) translateY(0px);
+}
+.item{
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+.item:hover{
+    opacity: 1;
+}

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import s from './NumberInput.css'
+import './NumberInput.css'
 
 const NumberInput = ({number, setNumber}) => {
     const area = useRef(null)
@@ -14,7 +14,6 @@ const NumberInput = ({number, setNumber}) => {
         } else {
             element.style.height = '100px'
         }
-
     }
 
     return (

@@ -3,6 +3,7 @@ import p_p from "./calcFunctions";
 import s from './Calculator.module.css'
 import NumberInput from './NumberInput/NumberInput'
 import btn_change from './../btn-change.svg'
+import RadixInput from './RadixInput/RadixInput';
 
 const Calculator = () => {
     const [number, setNumber] = useState('')
@@ -53,17 +54,17 @@ const Calculator = () => {
         setResult(y)
     }
 
-    function changeFromRadix(el) {
-        if (el.target.value <= 16) {
-            setFromRadix(el.target.value)
-            auto_fit(el.target)
+    function changeFromRadix(num) {
+        if (num <= 16) {
+            setFromRadix(num)
+            auto_fit(firstInput.current)
         }
     }
 
-    function changeToRadix(el) {
-        if (el.target.value <= 16) {
-            setToRadix(el.target.value)
-            auto_fit(el.target)
+    function changeToRadix(num) {
+        if (num <= 16) {
+            setToRadix(num)
+            auto_fit(secondInput.current)
         }
     }
 
@@ -76,30 +77,29 @@ const Calculator = () => {
     return (
         <div className={s.container}>
             <div className={s.header}>
-                <h1>redix calculator</h1>
+                <h1>radix calculator</h1>
             </div>
             <div className={s.wrapper}>
                 <div className={s.from_to__wrapper}>
                     <div className={s.from__wrapper}>
-                        <input
-                            ref={firstInput}
-                            type="text"
+                        <RadixInput
+                            characters={charactersFrom}
+                            Ref={firstInput}
                             value={fromRadix}
-                            onChange={el =>
-                                changeFromRadix(el)}/>
-                        <p className={s.characters}>{charactersFrom}</p>
+                            onChange={str => changeFromRadix(str)}
+                        />
+
                     </div>
                     <img onClick={() => {
                         replaceRadix()
                     }} src={btn_change} alt=""/>
                     <div className={s.to__wrapper}>
-                        <input
-                            ref={secondInput}
-                            type="text"
+                        <RadixInput
+                            characters={charactersTo}
+                            Ref={secondInput}
                             value={toRadix}
-                            onChange={el =>
-                                changeToRadix(el)}/>
-                        <p className={s.characters}>{charactersTo}</p>
+                            onChange={str => changeToRadix(str)}
+                        />
                     </div>
                 </div>
 
