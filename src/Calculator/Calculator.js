@@ -5,11 +5,11 @@ import NumberInput from './NumberInput/NumberInput'
 import {ReactComponent as Btn_change} from './../btn-change.svg'
 import RadixInput from './RadixInput/RadixInput';
 import Instruction from './Instruction/Instruction';
-
+import countCharacter from './extra functions';
 
 const Calculator = () => {
     const [number, setNumber] = useState('')
-    const [fromRadix, setFromRadix] = useState(10)
+    const [fromRadix, setFromRadix] = useState(16)
     const [toRadix, setToRadix] = useState(2)
     const [result, setResult] = useState(0)
     const [error, setError] = useState('')
@@ -25,16 +25,29 @@ const Calculator = () => {
         auto_fit(secondInput.current)
     })
     useEffect(() => {
-        if (fromRadix > 1 && toRadix > 1 &&
-            !(number.toString().includes('(') && !number.toString().includes(')'))&&
-            number.toString().split('').every((el) =>
-                (charactersFrom+'().').includes(el)
-            )) {
+        if (fromRadix < 1 && toRadix < 1) {
+            setError('not allowed radix')
+        }else if(!number.includes('.')
+            &&(number.includes('(')||number.includes(')'))){
+            setError('brackets must be after point')
+        } else if (number.toString().includes('(') &&
+            !number.toString().includes(')')
+            ||!number.toString().includes('(') &&
+            number.toString().includes(')')) {
+            setError('brackets is not closed')
+        } else if (!number.toString().split('').every((el) =>
+            (charactersFrom + '().').includes(el))) {
+            setError('not allowed characters')
+        } else if (countCharacter('(', number) > 1
+            || countCharacter(')', number) > 1) {
+            setError('Some identical brackets')
+        } else if (number.includes('(')
+            &&number.includes(')')
+            &&number.indexOf('(') >= number.indexOf(')') - 1) {
+            setError('nothing in brackets')
+        } else {
             setError('')
             setResult(p_p(number, fromRadix, toRadix))
-        } else {
-            setError('Error')
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!')
         }
     }, [number, fromRadix, toRadix])
 
@@ -71,7 +84,7 @@ const Calculator = () => {
     }
 
     function changeNumber(num) {
-        if ((charactersFrom + '().').includes(num[num.length - 1]) || num < number) {
+        if ((charactersFrom + '().').includes(num.charAt(num.length-1)) || num < number) {
             setNumber(num)
         }
     }
@@ -93,10 +106,10 @@ const Calculator = () => {
                         />
 
                     </div>
-                        <Btn_change className={s.img}
-                                    onClick={() => {
-                                        replaceRadix()
-                                    }}/>
+                    <Btn_change className={s.img}
+                                onClick={() => {
+                                    replaceRadix()
+                                }}/>
                     <div className={s.to__wrapper}>
                         <RadixInput
                             characters={charactersTo}

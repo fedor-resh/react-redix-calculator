@@ -41,18 +41,13 @@
 .from_to__wrapper>div{
     width: 100%;
 }
-.from__wrapper input{
-    width:28px;
-    outline: none;
-    border:0;
-    background-color:transparent;
-}
+.from__wrapper input,
 .to__wrapper input{
-    width:20px;
     outline: none;
     border:0;
     background-color:transparent;
 }
+
 
 .from_to__wrapper .img{
     /*position: relative;*/
