@@ -62,7 +62,10 @@
     fill:var(--color-white)
 }
 
-
+.result__wrapper{
+    border-bottom-right-radius:10px ;
+    border-bottom-left-radius:10px;
+}
 
 
 @media (min-width: 900px) {
@@ -74,6 +77,9 @@
     .result__wrapper{
         min-height: 400px;
     }
+    .result__wrapper{
+        border-bottom-left-radius:0;
+    }
     .input__wrapper{
         border-bottom-left-radius:10px ;
     }
@@ -82,7 +88,12 @@
     }
 
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
+    .img{
+        position: absolute;
+        top: 33px;
+        width: 60px !important;
+    }
     .from_to__wrapper{
         flex-direction: column;
     }

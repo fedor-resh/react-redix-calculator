@@ -40,8 +40,10 @@ const Calculator = () => {
             setError('not allowed characters')
         } else if (countCharacter('(', number) > 1
             || countCharacter(')', number) > 1) {
-            setError('Some identical brackets')
-        } else if (number.includes('(')
+            setError('several identical brackets')
+        } else if ((countCharacter('.',number)) > 1) {
+            setError('several points')
+        }else if (number.includes('(')
             &&number.includes(')')
             &&number.indexOf('(') >= number.indexOf(')') - 1) {
             setError('nothing in brackets')

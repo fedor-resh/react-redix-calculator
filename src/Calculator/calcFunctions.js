@@ -1,11 +1,12 @@
 function p_p10 (number,radix = 2){
     number = number.toString()
+
     const p_p10_c = (number) => {
 
         let p = radix**(number.length - 1)
         let c = 0
         for(let i = 0; i < number.length;i++){
-            if('1234567890'.includes(number.charAt(i))){
+            if('0123456789'.includes(number.charAt(i))){
                 c += +number.charAt(i)*p
             }else {
                 c += (+number.charCodeAt(i) - 55)*p
@@ -69,7 +70,7 @@ function p10_p(ch, zn, radix = 2) {
         }
         while (input) {
             let x = input % radix
-            if (x>10){
+            if (x>=10){
                 x=String.fromCharCode(x+55)
             }
             num = x + num
@@ -91,9 +92,10 @@ function p10_p(ch, zn, radix = 2) {
         ch *= radix
         let cif = Math.floor(ch / zn)
         ch -= cif * zn
-        if (cif>10){
+        if (cif>=10){
             cif=String.fromCharCode(cif+55)
         }
+
         d += cif.toString()
         if (arr.indexOf(ch)!==-1) {
             index = arr.indexOf(ch)
@@ -101,7 +103,7 @@ function p10_p(ch, zn, radix = 2) {
         }
         arr.push(ch)
     }
-
+    console.log(d)
     if (ch) {
         return int + '.' + d.substring(0, index) + '(' + d.substring(index) + ')'
     } else {

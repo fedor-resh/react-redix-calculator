@@ -8,11 +8,11 @@ const NumberInput = ({number, setNumber}) => {
     })
 
     function auto_grow(element) {
-        if (element.scrollHeight > 100) {
+        if (window.innerWidth>900&&element.scrollHeight<200) {
+            element.style.height = "200px"
+        } else {
             element.style.height = "5px";
             element.style.height = (element.scrollHeight + 5) + "px";
-        } else {
-            element.style.height = '100px'
         }
     }
 
