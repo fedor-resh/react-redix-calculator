@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import p_p from "./calcFunctions";
 import s from './Calculator.module.css'
 import NumberInput from './NumberInput/NumberInput'
-import {ReactComponent as Btn_change} from './../btn-change.svg'
+import {ReactComponent as BtnChange} from './../btn-change.svg'
 import RadixInput from './RadixInput/RadixInput';
 import Instruction from './Instruction/Instruction';
 import countCharacter from './extra functions';
@@ -27,13 +27,15 @@ const Calculator = () => {
     useEffect(() => {
         if (fromRadix < 1 && toRadix < 1) {
             setError('not allowed radix')
+        }else if(number.includes(')')&&number.indexOf(')')!==number.length-1) {
+            setError('characters after brackets')
         }else if(!number.includes('.')
             &&(number.includes('(')||number.includes(')'))){
             setError('brackets must be after point')
-        } else if (number.toString().includes('(') &&
-            !number.toString().includes(')')
-            ||!number.toString().includes('(') &&
-            number.toString().includes(')')) {
+        } else if ((number.toString().includes('(') &&
+            !number.toString().includes(')'))
+            ||(!number.toString().includes('(') &&
+            number.toString().includes(')'))) {
             setError('brackets is not closed')
         } else if (!number.toString().split('').every((el) =>
             (charactersFrom + '().').includes(el))) {
@@ -108,7 +110,7 @@ const Calculator = () => {
                         />
 
                     </div>
-                    <Btn_change className={s.img}
+                    <BtnChange className={s.img}
                                 onClick={() => {
                                     replaceRadix()
                                 }}/>
