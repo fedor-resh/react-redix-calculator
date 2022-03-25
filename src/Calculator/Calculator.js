@@ -27,15 +27,15 @@ const Calculator = () => {
     useEffect(() => {
         if (fromRadix < 1 && toRadix < 1) {
             setError('not allowed radix')
-        }else if(number.includes(')')&&number.indexOf(')')!==number.length-1) {
+        } else if (number.includes(')') && number.indexOf(')') !== number.length - 1) {
             setError('characters after brackets')
-        }else if(!number.includes('.')
-            &&(number.includes('(')||number.includes(')'))){
+        } else if (!number.includes('.')
+            && (number.includes('(') || number.includes(')'))) {
             setError('brackets must be after point')
         } else if ((number.toString().includes('(') &&
-            !number.toString().includes(')'))
-            ||(!number.toString().includes('(') &&
-            number.toString().includes(')'))) {
+                !number.toString().includes(')'))
+            || (!number.toString().includes('(') &&
+                number.toString().includes(')'))) {
             setError('brackets is not closed')
         } else if (!number.toString().split('').every((el) =>
             (charactersFrom + '().').includes(el))) {
@@ -43,11 +43,11 @@ const Calculator = () => {
         } else if (countCharacter('(', number) > 1
             || countCharacter(')', number) > 1) {
             setError('several identical brackets')
-        } else if ((countCharacter('.',number)) > 1) {
+        } else if ((countCharacter('.', number)) > 1) {
             setError('several points')
-        }else if (number.includes('(')
-            &&number.includes(')')
-            &&number.indexOf('(') >= number.indexOf(')') - 1) {
+        } else if (number.includes('(')
+            && number.includes(')')
+            && number.indexOf('(') >= number.indexOf(')') - 1) {
             setError('nothing in brackets')
         } else {
             setError('')
@@ -88,7 +88,7 @@ const Calculator = () => {
     }
 
     function changeNumber(num) {
-        if ((charactersFrom + '().').includes(num.charAt(num.length-1)) || num < number) {
+        if ((charactersFrom + '().').includes(num.charAt(num.length - 1)) || num < number) {
             setNumber(num)
         }
     }
@@ -111,9 +111,9 @@ const Calculator = () => {
 
                     </div>
                     <BtnChange className={s.img}
-                                onClick={() => {
-                                    replaceRadix()
-                                }}/>
+                               onClick={() => {
+                                   replaceRadix()
+                               }}/>
                     <div className={s.to__wrapper}>
                         <RadixInput
                             characters={charactersTo}
