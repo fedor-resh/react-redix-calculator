@@ -6,6 +6,7 @@ const NumberInput = ({number, setNumber}) => {
     useEffect(() => {
         auto_grow(area.current)
     })
+    
 
     function auto_grow(element) {
         if (window.innerWidth>900&&element.scrollHeight<200) {
@@ -17,6 +18,7 @@ const NumberInput = ({number, setNumber}) => {
     }
 
     return (
+
         <textarea
             ref={area}
             onInput={(el) => auto_grow(el.target)}
